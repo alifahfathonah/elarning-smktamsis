@@ -1,0 +1,10 @@
+RewriteEngine On
+
+#---- Begin Site Map ---#
+RewriteRule (.*)\.xml(.*) $1.php$2 [nocase]
+#---- End Site Map ----#
+
+#Home
+RewriteRule ^Elearning-smk-tamansiswa-jetis\.html$ login.php [L]
+RewriteRule ^daftar-ujian-online-sma-pgri-1-temanggung\.html$ daftar.php [L]
+RewriteRule ^register\.html$ simpan_siswa.php [L]
