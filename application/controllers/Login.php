@@ -38,36 +38,39 @@ class Login extends CI_Controller{
             # code...
             $data_session = array(
                 'nama' => $username,
-                'status' => "login"
+                'status' => "login",
+                'level' => 'admin'
             );
         
             $this->session->set_userdata($data_session);
         
-            redirect(base_url("admin"));
+            redirect(base_url("admin/beranda"));
         }
 
         elseif ( $cek_guru > 0 ) {
             # code...
             $data_session = array(
                 'nama' => $username,
-                'status' => "login"
+                'status' => "login",
+                'level' => 'guru'
             );
         
             $this->session->set_userdata($data_session);
         
-            redirect(base_url("admin/guru"));
+            redirect(base_url("admin/beranda"));
         }
 
         elseif ( $cek_siswa > 0 ) {
             # code...
             $data_session = array(
                 'nama' => $username,
-                'status' => "login"
+                'status' => "login",
+                'level' => 'siswa'
             );
         
             $this->session->set_userdata($data_session);
         
-            redirect(base_url("admin/siswa"));
+            redirect(base_url("admin/beranda"));
         }
 
         else{
