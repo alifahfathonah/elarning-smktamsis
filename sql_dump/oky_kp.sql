@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 28, 2019 at 12:56 PM
+-- Generation Time: Apr 28, 2019 at 03:21 PM
 -- Server version: 10.1.38-MariaDB
 -- PHP Version: 7.3.2
 
@@ -69,7 +69,9 @@ CREATE TABLE `guru` (
 --
 
 INSERT INTO `guru` (`guru_id`, `guru_nip`, `guru_nama`, `guru_username`, `guru_password`, `guru_level`, `guru_telp`, `guru_alamat`, `guru_email`) VALUES
-(1, NULL, NULL, 'guru', 'guru', 'guru', NULL, NULL, NULL);
+(1, '1985033020190428', 'guru satu', 'guru', 'guru', 'guru', '08123456789', 'jogja', 'gurusatu@gmail.com'),
+(2, '1990010120190428', 'Guru Dua', 'gurudua', 'gurudu', 'guru', '08123456789', 'Sleman							', 'gurudua@gmail.com'),
+(3, '1991010120190428', 'Guru Tiga', 'gurutiga', 'guruti', 'guru', '08123456789', 'bantul							', 'gurutiga@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -253,7 +255,7 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `guru`
 --
 ALTER TABLE `guru`
-  MODIFY `guru_id` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `guru_id` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `kelas`
