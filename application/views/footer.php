@@ -1,9 +1,8 @@
   <footer class="main-footer">
-    <strong>Copyright &copy; 2014-2018 <a href="http://adminlte.io/">AdminLTE.io</a>.</strong>
-    All rights reserved.
-    <div class="float-right d-none d-sm-inline-block">
+    <strong>E-Learning &copy; <?php echo date('Y') ?> SMK Tamansiswa Jetis 
+    <!-- <div class="float-right d-none d-sm-inline-block">
       <b>Version</b> 3.0.0-alpha
-    </div>
+    </div> -->
   </footer>
 
   <!-- Control Sidebar -->

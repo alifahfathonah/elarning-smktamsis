@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 22, 2019 at 09:15 AM
+-- Generation Time: Apr 28, 2019 at 12:56 PM
 -- Server version: 10.1.38-MariaDB
 -- PHP Version: 7.3.2
 
@@ -96,6 +96,15 @@ CREATE TABLE `kelas` (
   `kelas_nama` varchar(25) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `kelas`
+--
+
+INSERT INTO `kelas` (`kelas_id`, `kelas_nama`) VALUES
+(2, 'kelas 1'),
+(3, 'kelas 2'),
+(4, 'kelas 3');
+
 -- --------------------------------------------------------
 
 --
@@ -134,6 +143,15 @@ CREATE TABLE `pelajaran` (
   `pelajaran_nama` varchar(50) DEFAULT NULL,
   `kelas_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `pelajaran`
+--
+
+INSERT INTO `pelajaran` (`pelajaran_id`, `pelajaran_nama`, `kelas_id`) VALUES
+(4, 'Matematika', 2),
+(5, 'Bahasa Indonesia', 3),
+(6, 'Bahasa Inggris', 4);
 
 -- --------------------------------------------------------
 
@@ -236,6 +254,18 @@ ALTER TABLE `admin`
 --
 ALTER TABLE `guru`
   MODIFY `guru_id` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `kelas`
+--
+ALTER TABLE `kelas`
+  MODIFY `kelas_id` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `pelajaran`
+--
+ALTER TABLE `pelajaran`
+  MODIFY `pelajaran_id` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `siswa`
