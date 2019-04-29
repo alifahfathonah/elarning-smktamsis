@@ -150,6 +150,48 @@ class M_admin extends CI_Model{
 	}
 	// admin data guru model
 
+	// admin data admin model
+	function admin_data_admin()
+	{
+		return $this->db->query("SELECT * FROM admin")->result_object();
+	}
+
+	function admin_add_data_admin()
+	{
+		return $this->db->insert('admin', [
+			'admin_username'=> $this->post['username'],
+			'admin_nama'=> $this->post['nama'],
+			'no_telp'=> $this->post['telp'],
+			'email'=> $this->post['email'],
+			'alamat'=> $this->post['alamat'],
+			'admin_level'=> 'admin',
+			'admin_password'=> $this->post['password']
+			] );
+	}
+		
+	function admin_edit_data_admin(){		
+		return $this->db->query("SELECT * FROM admin WHERE admin_id='{$this->admin_id}' ")->row();
+	}
+	
+	function admin_update_data_admin()
+	{
+		return $this->db->update('admin',[
+			'admin_username'=> $this->post['username'],
+			'admin_nama'=> $this->post['nama'],
+			'no_telp'=> $this->post['telp'],
+			'email'=> $this->post['email'],
+			'alamat'=> $this->post['alamat'],
+			'admin_level'=> 'admin',
+		],
+		['admin_id'=>$this->post['admin_id']]);
+	}
+
+	function admin_delete_data_admin()
+	{
+		return $this->db->delete('admin', [ 'admin_id'=>$this->admin_id ]);
+	}
+	// admin data admin model
+
 	// cek user already
 	function cek_user_admin()
 	{

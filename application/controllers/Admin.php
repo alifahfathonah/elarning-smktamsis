@@ -77,6 +77,7 @@ class Admin extends MY_Controller{
 		switch ($_SESSION['level']) {
 			case 'admin':
 				$this->view= 'admin_user_admin';
+				$this->content['admin']= $this->M_admin->admin_data_admin();
 				$this->render_pages();
 				break;
 			
