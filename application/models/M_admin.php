@@ -104,6 +104,52 @@ class M_admin extends CI_Model{
 	}
 	// admin data guru model
 
+	// admin data siswa model
+	function admin_data_siswa()
+	{
+		return $this->db->query("SELECT * FROM siswa,kelas WHERE kelas.kelas_id=siswa.kelas_id")->result_object();
+	}
+
+	function admin_add_data_siswa()
+	{
+		return $this->db->insert('siswa', [
+			'siswa_nis'=> $this->post['nis'],
+			'siswa_nama'=> $this->post['nama'],
+			'siswa_username'=> $this->post['username'],
+			'siswa_password'=> $this->post['password'],
+			'siswa_level'=> 'siswa',
+			'siswa_telp'=> $this->post['telp'],
+			'siswa_alamat'=> $this->post['alamat'],
+			'siswa_email'=> $this->post['email'],
+			'kelas_id'=> $this->post['kelas_id'],
+		] );
+	}
+
+	function admin_edit_data_siswa(){		
+		return $this->db->query("SELECT * FROM siswa WHERE siswa_id='{$this->siswa_id}' ")->row();
+	}
+
+	function admin_update_data_siswa()
+	{
+		return $this->db->update('siswa',[
+			'siswa_nis'=>$this->post['nis'],
+			'siswa_nama'=>$this->post['nama'],
+			'siswa_username'=>$this->post['username'],
+			'siswa_password'=>$this->post['password'],
+			'siswa_telp'=>$this->post['telp'],
+			'siswa_alamat'=>$this->post['alamat'],
+			'siswa_email'=>$this->post['email'],
+			'kelas_id'=>$this->post['kelas_id'],
+		],
+		['siswa_id'=>$this->post['siswa_id']]);
+	}
+
+	function admin_delete_data_siswa()
+	{
+		return $this->db->delete('siswa', [ 'siswa_id'=>$this->siswa_id ]);
+	}
+	// admin data guru model
+
 	// cek user already
 	function cek_user_admin()
 	{

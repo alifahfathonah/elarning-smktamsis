@@ -120,7 +120,7 @@
   $(document).on('click', '.add-new', function(e){
     e.preventDefault();
     $.get($(this).attr('href'), function(data){
-      $('#myModal .modal-title').html('Tambah Pelajaran Baru');
+      $('#myModal .modal-title').html('Tambah Data Informasi Guru');
       $('#myModal .modal-body').html(data);
       $('#myModal').modal('show');
     },'html');
@@ -153,7 +153,7 @@
   $('.edit').on('click', function(e){
     e.preventDefault(); 
     $.get( $(this).attr('href'), function(data){
-      $('#myModal .modal-title').html('Edit Informasi Pelajaran');
+      $('#myModal .modal-title').html('Edit Informasi Guru');
       $('#myModal .modal-body').html(data);
       $('#myModal').modal('show');
     } ,'html');

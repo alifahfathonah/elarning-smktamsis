@@ -158,7 +158,7 @@ class Admin extends MY_Controller{
 						<input type="hidden" name="guru_id" value="'.$guru->guru_id.'">	
 						<div class="form-group">
 							<label for="inputNip">NIP</label>
-							<input value="'.$guru->guru_nip.'" name="nip" type="text" class="form-control" id="inputNip" placeholder="*) NIP" required="">
+							<input readonly value="'.$guru->guru_nip.'" name="nip" type="text" class="form-control" id="inputNip" placeholder="*) NIP" required="">
 						</div>
 						<div class="form-group">
 							<label for="inputNama">Nama Guru</label>
@@ -287,7 +287,209 @@ class Admin extends MY_Controller{
 		switch ($_SESSION['level']) {
 			case 'admin':
 				$this->view= 'admin_user_siswa';
+				$this->content['siswa']= $this->M_admin->admin_data_siswa();
 				$this->render_pages();
+				break;
+			
+			default:
+				# code...
+				break;
+		}
+	}
+	function form_add_data_siswa()
+	{
+		switch ($_SESSION['level']) {
+			case 'admin':
+				$this->html= '
+					<form action="'.base_url().'admin/add-data-siswa" role="form" id="addNewSiswa" method="post" enctype="multipart/form-data">
+						<div class="form-group">
+							<label for="inputNis">NIS</label>
+							<input name="nis" type="text" class="form-control" id="inputNis" placeholder="*) Nomor Induk Siswa(NIS)" required="">
+						</div>
+						<div class="form-group">
+							<label for="inputNama">Nama Siswa</label>
+							<input name="nama" type="text" class="form-control" id="inputNama" placeholder="*) Nama Siswa" required="">
+						</div>
+						<div class="form-group">
+							<label for="inputKelas">Kelas</label>
+							<select name="kelas_id" class="form-control" id="inputKelas" required="">
+								<option value="" selected disabled> -- Pilih Kelas -- </option>
+							';
+							foreach ($this->M_admin->admin_kelas() as $key => $value) {
+								$this->html.= '<option value="'.$value->kelas_id.'">'.$value->kelas_nama.'</option>';
+							}
+							$this->html.= '
+							</select>							
+						</div>
+						<div class="form-group">
+							<label for="inputNoTelp">No Telpon</label>
+							<input name="telp" type="text" class="form-control" id="inputNoTelp" placeholder="*) Ex: 08123456789" required="">
+						</div>
+						<div class="form-group">
+							<label for="inputEmail">Email</label>
+							<input name="email" type="email" class="form-control" id="inputEmail" placeholder="*) Ex: email@gmail.com" required="">
+						</div>
+						<div class="form-group">
+							<label for="inputAlamat">Alamat</label>
+							<textarea name="alamat" class="form-control" id="inputAlamat" required="" rows="3" placeholder="Alamat ...">
+							</textarea>
+						</div>
+						<div class="form-group">
+							<label for="inputUsername">Username</label>
+							<input name="username" type="text" class="form-control" id="inputUsername" placeholder="*) Username" required="">
+						</div>
+						<div class="form-group">
+							<label for="inputPassword">Password</label>
+							<input name="password" type="password" class="form-control" id="inputPassword" placeholder="*******" required="">
+						</div>
+						<button type="submit" class="btn btn-primary">Publish</button>
+					</form>
+				';
+				echo $this->html;
+				break;
+			
+			default:
+				# code...
+				break;
+		}
+	}
+	function form_edit_data_siswa()
+	{
+		switch ($_SESSION['level']) {
+			case 'admin':
+				$this->M_admin->siswa_id= $this->uri->segment(3);
+				$row= $this->M_admin->admin_edit_data_siswa();
+				$this->html= '
+					<form action="'.base_url().'admin/update-data-siswa" role="form" id="editSiswa" method="post" enctype="multipart/form-data">
+						<input type="hidden" name="siswa_id" value="'.$row->siswa_id.'">	
+						<div class="form-group">
+							<label for="inputNis">NIS</label>
+							<input readonly value="'.$row->siswa_nis.'" name="nis" type="text" class="form-control" id="inputNis" placeholder="*) Nomor Induk Siswa(NIS)" required="">
+						</div>
+						<div class="form-group">
+							<label for="inputNama">Nama Siswa</label>
+							<input value="'.$row->siswa_nama.'" name="nama" type="text" class="form-control" id="inputNama" placeholder="*) Nama Siswa" required="">
+						</div>
+						<div class="form-group">
+							<label for="inputKelas">Kelas</label>
+							<select name="kelas_id" class="form-control" id="inputKelas" required="">
+								<option value="" disabled> -- Pilih Kelas -- </option>
+							';
+							foreach ($this->M_admin->admin_kelas() as $key => $value) {
+								$this->html.= ($value->kelas_id == $row->kelas_id) ? '<option selected value="'.$value->kelas_id.'">'.$value->kelas_nama.'</option>' : '<option value="'.$value->kelas_id.'">'.$value->kelas_nama.'</option>';
+							}
+							$this->html.= '
+							</select>							
+						</div>
+						<div class="form-group">
+							<label for="inputNoTelp">No Telpon</label>
+							<input value="'.$row->siswa_telp.'" name="telp" type="text" class="form-control" id="inputNoTelp" placeholder="*) Ex: 08123456789" required="">
+						</div>
+						<div class="form-group">
+							<label for="inputEmail">Email</label>
+							<input value="'.$row->siswa_email.'" name="email" type="email" class="form-control" id="inputEmail" placeholder="*) Ex: email@gmail.com" required="">
+						</div>
+						<div class="form-group">
+							<label for="inputAlamat">Alamat</label>
+							<textarea name="alamat" class="form-control" id="inputAlamat" required="" rows="3" placeholder="Alamat ...">
+								'.$row->siswa_alamat.'
+							</textarea>
+						</div>
+						<div class="form-group">
+							<label for="inputUsername">Username</label>
+							<input readonly value="'.$row->siswa_username.'" name="username" type="text" class="form-control" id="inputUsername" placeholder="*) Username" required="">
+						</div>
+						<div class="form-group">
+							<label for="inputPassword">Password <small>*) jika tidak ada perubahan password masih sama seperti sebelumnya</small></label>
+							<input value="'.$row->siswa_password.'" name="password" type="password" class="form-control" id="inputPassword" placeholder="*******" required="">
+						</div>
+						<button type="submit" class="btn btn-primary">Publish</button>
+					</form>
+				';
+				echo $this->html;
+				break;
+			
+			default:
+				# code...
+				break;
+		}
+	}
+	function add_data_siswa()
+	{
+		switch ($_SESSION['level']) {
+			case 'admin':
+				$this->M_admin->post= $this->input->post();
+				$this->M_admin->username= $this->input->post('username');
+				$cek= $this->M_admin->cek_user_admin() + $this->M_admin->cek_user_guru() + $this->M_admin->cek_user_siswa(); 
+				
+				if ( $cek < 1 ) {
+					if ( $this->M_admin->admin_add_data_siswa() ) {
+						$this->msg= [
+							'stats'=> 1,
+							'msg'=> 'Data Berhasil Ditambahkan',
+						];
+					} else {
+						$this->msg= [
+							'stats'=> 0,
+							'msg'=> 'Maaf Data Gagal Ditambahkan',
+						];
+					}
+					
+				} else {
+					$this->msg= [
+						'stats'=> 0,
+						'msg'=> 'Maaf Username Sudah Digunakan',
+					];
+				}
+				echo json_encode($this->msg);
+				break;
+			
+			default:
+				# code...
+				break;
+		}
+	}
+	function update_data_siswa()
+	{
+		switch ($_SESSION['level']) {
+			case 'admin':
+				$this->M_admin->post= $this->input->post();
+				if ( $this->M_admin->admin_update_data_siswa() ) {
+					$this->msg= [
+						'stats'=> 1,
+						'msg'=> 'Data Berhasil Diupdate',
+					];
+				} else {
+					$this->msg= [
+						'stats'=> 0,
+						'msg'=> 'Maaf Data Gagal Diupdate',
+					];
+				}
+				echo json_encode($this->msg);
+				break;
+			
+			default:
+				# code...
+				break;
+		}
+	}
+	function delete_data_siswa()
+	{
+		switch ($_SESSION['level']) {
+			case 'admin':
+				$this->M_admin->siswa_id= $this->uri->segment(3);
+				if ( $this->M_admin->admin_delete_data_siswa() ) {
+					$this->msg= [
+						'stats'=> 1,
+						'msg'=> 'Data Berhasil Dihapus',
+					];
+				} else {
+					$this->msg= [
+						'stats'=> 0,
+						'msg'=> 'Maaf Data Gagal Dihapus',
+					];
+				}
+				echo json_encode($this->msg);
 				break;
 			
 			default:
