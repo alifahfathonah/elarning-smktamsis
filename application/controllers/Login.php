@@ -36,7 +36,9 @@ class Login extends CI_Controller{
 
         if ( $cek_admin > 0 ) {
             # code...
+            $row  = $this->m_login->cek_login("admin",$where_admin)->row();
             $data_session = array(
+                'id' => $row->admin_id,
                 'nama' => $username,
                 'status' => "login",
                 'level' => 'admin'

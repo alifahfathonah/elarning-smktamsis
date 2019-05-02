@@ -39,7 +39,7 @@
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           <li class="nav-item ">
-            <a href="<?php echo base_url() ?>admin/beranda" class="nav-link active">
+            <a href="<?php echo base_url() ?>admin/beranda" class="nav-link <?php echo ($this->uri->segment(2) == 'beranda' ) ? 'active' : null ?>">
               <i class="nav-icon fa fa-dashboard"></i>
               <p>
                 Beranda
@@ -47,7 +47,7 @@
             </a>
           </li>
           <li class="nav-item ">
-            <a href="<?php echo base_url() ?>admin/profil" class="nav-link">
+            <a href="<?php echo base_url() ?>admin/profil" class="nav-link <?php echo ($this->uri->segment(2) == 'profil' ) ? 'active' : null ?>">
               <i class="nav-icon fa fa-user-circle-o"></i>
               <p>
                 Guru
@@ -55,14 +55,14 @@
             </a>
           </li>
           <li class="nav-item ">
-            <a href="<?php echo base_url() ?>admin/data-materi" class="nav-link">
+            <a href="<?php echo base_url() ?>admin/data-materi" class="nav-link <?php echo ($this->uri->segment(2) == 'data-materi' ) ? 'active' : null ?>">
               <i class="nav-icon fa fa-user-circle-o"></i>
               <p>
                 Materi
               </p>
             </a>
           </li>
-          <li class="nav-item has-treeview">
+          <li class="nav-item has-treeview <?php echo ($this->uri->segment(2) == 'data-upload' || $this->uri->segment(2) == 'data-download' ) ? 'menu-open' : null ?>">
             <a href="#" class="nav-link">
               <i class="nav-icon fa fa-user"></i>
               <p>
@@ -72,13 +72,13 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="<?php echo base_url() ?>admin/data-upload" class="nav-link">
+                <a href="<?php echo base_url() ?>admin/data-upload" class="nav-link <?php echo ($this->uri->segment(2) == 'data-upload' ) ? 'active' : null ?>">
                   <i class="fa fa-circle-o nav-icon"></i>
                   <p>Upload</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="<?php echo base_url() ?>admin/data-download" class="nav-link">
+                <a href="<?php echo base_url() ?>admin/data-download" class="nav-link <?php echo ($this->uri->segment(2) == 'data-download' ) ? 'active' : null ?>">
                   <i class="fa fa-circle-o nav-icon"></i>
                   <p>Download</p>
                 </a>
@@ -86,7 +86,7 @@
             </ul>
           </li>
           <li class="nav-item ">
-            <a href="<?php echo base_url() ?>admin/data-siswa-belum-kumpul" class="nav-link">
+            <a href="<?php echo base_url() ?>admin/data-siswa-belum-kumpul" class="nav-link <?php echo ($this->uri->segment(2) == 'data-siswa-belum-kumpul' ) ? 'active' : null ?>">
               <i class="nav-icon fa fa-user-circle-o"></i>
               <p>
                 Siswa Belum Kumpul

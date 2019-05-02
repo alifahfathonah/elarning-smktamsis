@@ -41,7 +41,7 @@
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           <li class="nav-item ">
-            <a href="<?php echo base_url() ?>admin/beranda" class="nav-link active">
+            <a href="<?php echo base_url() ?>admin/beranda" class="nav-link <?php echo ($this->uri->segment(2) == 'beranda' ) ? 'active' : null ; ?>">
               <i class="nav-icon fa fa-dashboard"></i>
               <p>
                 Beranda
@@ -49,14 +49,14 @@
             </a>
           </li>
           <li class="nav-item ">
-            <a href="<?php echo base_url() ?>admin/profil" class="nav-link">
+            <a href="<?php echo base_url() ?>admin/profil" class="nav-link <?php echo ( $this->uri->segment(2) == 'profil' ) ? 'active' : null ; ?>">
               <i class="nav-icon fa fa-user-circle-o"></i>
               <p>
                 Administrator
               </p>
             </a>
           </li>
-          <li class="nav-item has-treeview">
+          <li class="nav-item has-treeview <?php echo ($this->uri->segment(2) == 'data-admin' || $this->uri->segment(2) == 'data-guru' || $this->uri->segment(2) == 'data-siswa') ? 'menu-open' : null ; ?>">
             <a href="#" class="nav-link">
               <i class="nav-icon fa fa-user"></i>
               <p>
@@ -66,26 +66,26 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="<?php echo base_url() ?>admin/data-admin" class="nav-link">
+                <a href="<?php echo base_url() ?>admin/data-admin" class="nav-link <?php echo ($this->uri->segment(2) == 'data-admin') ? 'active' : null ; ?>">
                   <i class="fa fa-circle-o nav-icon"></i>
                   <p>Admin</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="<?php echo base_url() ?>admin/data-guru" class="nav-link">
+                <a href="<?php echo base_url() ?>admin/data-guru" class="nav-link <?php echo ($this->uri->segment(2) == 'data-guru') ? 'active' : null ; ?>">
                   <i class="fa fa-circle-o nav-icon"></i>
                   <p>Guru</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="<?php echo base_url() ?>admin/data-siswa" class="nav-link">
+                <a href="<?php echo base_url() ?>admin/data-siswa" class="nav-link <?php echo ($this->uri->segment(2) == 'data-siswa') ? 'active' : null ; ?>">
                   <i class="fa fa-circle-o nav-icon"></i>
                   <p>Siswa</p>
                 </a>
               </li>
             </ul>
           </li>
-          <li class="nav-item has-treeview">
+          <li class="nav-item has-treeview <?php echo ($this->uri->segment(2) == 'kelas' || $this->uri->segment(2) == 'pelajaran') ? 'menu-open' : null ; ?>">
             <a href="#" class="nav-link">
               <i class="nav-icon fa fa-graduation-cap"></i>
               <p>
@@ -94,14 +94,14 @@
               </p>
             </a>
             <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="<?php echo base_url() ?>admin/kelas" class="nav-link">
+              <li class="nav-item" >
+                <a href="<?php echo base_url() ?>admin/kelas" class="nav-link <?php echo ($this->uri->segment(2) == 'kelas') ? 'active' : null ; ?>">
                   <i class="fa fa-circle-o nav-icon"></i>
                   <p>Kelas</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="<?php echo base_url('admin/pelajaran')?>" class="nav-link">
+                <a href="<?php echo base_url('admin/pelajaran')?>" class="nav-link <?php echo ($this->uri->segment(2) == 'pelajaran') ? 'active' : null ; ?>">
                   <i class="fa fa-circle-o nav-icon"></i>
                   <p>Pelajaran</p>
                 </a>

@@ -49,6 +49,8 @@ class Admin extends MY_Controller{
 			case 'admin':
 				# profil admin
 				$this->view= 'admin_profil';
+				$this->M_admin->admin_id= $this->session->userdata['id'];
+				$this->content['admin']= $this->M_admin->admin_edit_data_admin();
 				$this->render_pages();
 				break;
 			
@@ -79,6 +81,176 @@ class Admin extends MY_Controller{
 				$this->view= 'admin_user_admin';
 				$this->content['admin']= $this->M_admin->admin_data_admin();
 				$this->render_pages();
+				break;
+			
+			default:
+				# code...
+				break;
+		}
+	}
+
+	function form_add_data_admin()
+	{
+		switch ($_SESSION['level']) {
+			case 'admin':
+				echo '
+					<form action="'.base_url().'admin/add-data-admin" role="form" id="addNewAdmin" method="post" enctype="multipart/form-data">
+						<div class="form-group">
+							<label for="inputNama">Nama Admin</label>
+							<input name="nama" type="text" class="form-control" id="inputNama" placeholder="*) Nama Admin" required="">
+						</div>
+						<div class="form-group">
+							<label for="inputNoTelp">No Telpon</label>
+							<input name="telp" type="text" class="form-control" id="inputNoTelp" placeholder="*) Ex: 08123456789" required="">
+						</div>
+						<div class="form-group">
+							<label for="inputEmail">Email</label>
+							<input name="email" type="email" class="form-control" id="inputEmail" placeholder="*) Ex: email@gmail.com" required="">
+						</div>
+						<div class="form-group">
+							<label for="inputAlamat">Alamat</label>
+							<textarea name="alamat" class="form-control" id="inputAlamat" required="">
+							</textarea>
+						</div>
+						<div class="form-group">
+							<label for="inputUsername">Username</label>
+							<input name="username" type="text" class="form-control" id="inputUsername" placeholder="*) Username" required="">
+						</div>
+						<div class="form-group">
+							<label for="inputPassword">Password</label>
+							<input name="password" type="password" class="form-control" id="inputPassword" placeholder="*******" required="">
+						</div>
+						<button type="submit" class="btn btn-primary">Publish</button>
+					</form>
+				';
+				break;
+			
+			default:
+				# code...
+				break;
+		}
+	}
+	function form_edit_data_admin()
+	{
+		switch ($_SESSION['level']) {
+			case 'admin':
+				$this->M_admin->admin_id= $this->uri->segment(3);
+				$row= $this->M_admin->admin_edit_data_admin();
+				echo '
+					<form action="'.base_url().'admin/update-data-admin" role="form" id="editAdmin" method="post" enctype="multipart/form-data">
+						<input type="hidden" name="admin_id" value="'.$row->admin_id.'">	
+						<div class="form-group">
+							<label for="inputNama">Nama Guru</label>
+							<input value="'.$row->admin_nama.'" name="nama" type="text" class="form-control" id="inputNama" placeholder="*) Nama Guru" required="">
+						</div>
+						<div class="form-group">
+							<label for="inputNoTelp">No Telpon</label>
+							<input value="'.$row->no_telp.'" name="telp" type="text" class="form-control" id="inputNoTelp" placeholder="*) Ex: 08123456789" required="">
+						</div>
+						<div class="form-group">
+							<label for="inputEmail">Email</label>
+							<input value="'.$row->email.'" name="email" type="email" class="form-control" id="inputEmail" placeholder="*) Ex: email@gmail.com" required="">
+						</div>
+						<div class="form-group">
+							<label for="inputAlamat">Alamat</label>
+							<textarea name="alamat" class="form-control" id="inputAlamat" required="">
+								'.$row->alamat.'
+							</textarea>
+						</div>
+						<div class="form-group">
+							<label for="inputUsername">Username</label>
+							<input readonly value="'.$row->admin_username.'" name="username" type="text" class="form-control" id="inputUsername" placeholder="*) Username" required="">
+						</div>
+						<div class="form-group">
+							<label for="inputPassword">Password <small>*) jika tidak ada perubahan password masih sama seperti sebelumnya</small></label>
+							<input value="'.$row->admin_password.'" name="password" type="password" class="form-control" id="inputPassword" placeholder="*******" required="">
+						</div>
+						<button type="submit" class="btn btn-primary">Publish</button>
+					</form>
+				';
+				break;
+			
+			default:
+				# code...
+				break;
+		}
+	}
+	function add_data_admin()
+	{
+		switch ($_SESSION['level']) {
+			case 'admin':
+				$this->M_admin->post= $this->input->post();
+				$this->M_admin->username= $this->input->post('username');
+				$cek= $this->M_admin->cek_user_admin() + $this->M_admin->cek_user_guru() + $this->M_admin->cek_user_siswa(); 
+				
+				if ( $cek < 1 ) {
+					if ( $this->M_admin->admin_add_data_admin() ) {
+						$this->msg= [
+							'stats'=> 1,
+							'msg'=> 'Data Berhasil Ditambahkan',
+						];
+					} else {
+						$this->msg= [
+							'stats'=> 0,
+							'msg'=> 'Maaf Data Gagal Ditambahkan',
+						];
+					}
+					
+				} else {
+					$this->msg= [
+						'stats'=> 0,
+						'msg'=> 'Maaf Username Sudah Digunakan',
+					];
+				}
+				echo json_encode($this->msg);
+				break;
+			
+			default:
+				# code...
+				break;
+		}
+	}
+	function update_data_admin()
+	{
+		switch ($_SESSION['level']) {
+			case 'admin':
+				$this->M_admin->post= $this->input->post();
+				if ( $this->M_admin->admin_update_data_admin() ) {
+					$this->msg= [
+						'stats'=> 1,
+						'msg'=> 'Data Berhasil Diupdate',
+					];
+				} else {
+					$this->msg= [
+						'stats'=> 0,
+						'msg'=> 'Maaf Data Gagal Diupdate',
+					];
+				}
+				echo json_encode($this->msg);
+				break;
+			
+			default:
+				# code...
+				break;
+		}
+	}
+	function delete_data_admin()
+	{
+		switch ($_SESSION['level']) {
+			case 'admin':
+				$this->M_admin->admin_id= $this->uri->segment(3);
+				if ( $this->M_admin->admin_delete_data_admin() ) {
+					$this->msg= [
+						'stats'=> 1,
+						'msg'=> 'Data Berhasil Dihapus',
+					];
+				} else {
+					$this->msg= [
+						'stats'=> 0,
+						'msg'=> 'Maaf Data Gagal Dihapus',
+					];
+				}
+				echo json_encode($this->msg);
 				break;
 			
 			default:
