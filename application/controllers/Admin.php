@@ -53,16 +53,20 @@ class Admin extends MY_Controller{
 				$this->content['admin']= $this->M_admin->admin_edit_data_admin();
 				$this->render_pages();
 				break;
-			
-			case 'guru':
+				
+				case 'guru':
 				# profil guru
 				$this->view= 'admin_guru_profil';
+				$this->M_admin->guru_id= $this->session->userdata['id'];
+				$this->content['row']= $this->M_admin->admin_edit_data_guru();
 				$this->render_pages();
 				break;
-
-			case 'siswa':
+				
+				case 'siswa':
 				# profil siswa
 				$this->view= 'admin_siswa_profil';
+				$this->M_admin->siswa_id= $this->session->userdata['id'];
+				$this->content['row']= $this->M_admin->admin_edit_data_siswa();
 				$this->render_pages();
 				break;
 			
@@ -956,6 +960,40 @@ class Admin extends MY_Controller{
 				# code...
 				break;
 		}
+	}
+	function form_add_data_materi(){
+		switch ($_SESSION['level']) {
+			case 'guru':
+				# code...
+				$this->html= '
+					<form action="'.base_url().'admin/add-data-materi" role="form" id="addNewMateri" method="post" enctype="multipart/form-data">
+						<div class="form-group">
+							<label for="inputNip">Nama Materi</label>
+							<input name="materi_nama" type="text" class="form-control" id="inputNip" placeholder="*) Masukan Nama Materi" required="">
+						</div>
+						<div class="form-group">
+							<label for="inputNama">Upload Materi</label>
+							<input name="fupload" type="file" class="form-control"  required="">
+						</div>
+						<button type="submit" class="btn btn-primary">Publish</button>
+					</form>
+				';
+				echo $this->html;
+				break;
+			
+			default:
+				# code...
+				break;
+		}
+	}
+	function form_edit_data_materi(){
+		echo 'form edit data materi';
+	}
+	function update_data_materi(){
+		echo 'update data materi';
+	}
+	function delete_data_materi(){
+		echo "delete data materi";
 	}
 	// data_materi controller
 	

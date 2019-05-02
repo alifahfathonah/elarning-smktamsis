@@ -9,12 +9,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <!-- <h1>Data Tables</h1> -->
+            <h1>Data Informasi Profil</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Akademik</a></li>
-              <li class="breadcrumb-item active">Kelas</li>
+              <li class="breadcrumb-item"><a href="<?php echo base_url() ?>admin/beranda">Beranda</a></li>
+              <li class="breadcrumb-item active">Informasi Profil</li>
             </ol>
           </div>
         </div>
@@ -26,112 +26,42 @@
       <div class="row">
         <div class="col-12">
           <div class="card">
-            <div class="card-header">
+            <!-- <div class="card-header">
               <h3 class="card-title">Daftar Informasi Kelas</h3>
-            </div>
+            </div> -->
             <!-- /.card-header -->
             <div class="card-body">
-              <table id="example1" class="table table-bordered table-striped">
-                <thead>
-                <tr>
-                  <th>Rendering engine</th>
-                  <th>Browser</th>
-                  <th>Platform(s)</th>
-                  <th>Engine version</th>
-                  <th>CSS grade</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                  <td>Trident</td>
-                  <td>Internet
-                    Explorer 4.0
-                  </td>
-                  <td>Win 95+</td>
-                  <td> 4</td>
-                  <td>X</td>
-                </tr>
-                <tr>
-                  <td>Trident</td>
-                  <td>Internet
-                    Explorer 5.0
-                  </td>
-                  <td>Win 95+</td>
-                  <td>5</td>
-                  <td>C</td>
-                </tr>
-                <tr>
-                  <td>Trident</td>
-                  <td>Internet
-                    Explorer 5.5
-                  </td>
-                  <td>Win 95+</td>
-                  <td>5.5</td>
-                  <td>A</td>
-                </tr>
-                <tr>
-                  <td>Trident</td>
-                  <td>Internet
-                    Explorer 6
-                  </td>
-                  <td>Win 98+</td>
-                  <td>6</td>
-                  <td>A</td>
-                </tr>
-                <tr>
-                  <td>Trident</td>
-                  <td>Internet Explorer 7</td>
-                  <td>Win XP SP2+</td>
-                  <td>7</td>
-                  <td>A</td>
-                </tr>
-                <tr>
-                  <td>Trident</td>
-                  <td>AOL browser (AOL desktop)</td>
-                  <td>Win XP</td>
-                  <td>6</td>
-                  <td>A</td>
-                </tr>
-                <tr>
-                  <td>Gecko</td>
-                  <td>Firefox 1.0</td>
-                  <td>Win 98+ / OSX.2+</td>
-                  <td>1.7</td>
-                  <td>A</td>
-                </tr>
-                <tr>
-                  <td>Gecko</td>
-                  <td>Firefox 1.5</td>
-                  <td>Win 98+ / OSX.2+</td>
-                  <td>1.8</td>
-                  <td>A</td>
-                </tr>
-                <tr>
-                  <td>Gecko</td>
-                  <td>Firefox 2.0</td>
-                  <td>Win 98+ / OSX.2+</td>
-                  <td>1.8</td>
-                  <td>A</td>
-                </tr>
-                <tr>
-                  <td>Gecko</td>
-                  <td>Firefox 3.0</td>
-                  <td>Win 2k+ / OSX.3+</td>
-                  <td>1.9</td>
-                  <td>A</td>
-                </tr>
-                
-                </tbody>
-                <tfoot>
-                <tr>
-                  <th>Rendering engine</th>
-                  <th>Browser</th>
-                  <th>Platform(s)</th>
-                  <th>Engine version</th>
-                  <th>CSS grade</th>
-                </tr>
-                </tfoot>
-              </table>
+                <div class="form-group">
+                  <label for="inputNama">NIS</label>
+                  <input value="<?php echo $row->siswa_nis ?>" readonly name="nip" type="text" class="form-control" id="inputNama" placeholder="*) Nama Admin" required="">
+                </div>
+                <div class="form-group">
+                  <label for="inputNama">Nama Siswa</label>
+                  <input value="<?php echo $row->siswa_nama ?>" readonly name="nama" type="text" class="form-control" id="inputNama" placeholder="*) Nama Admin" required="">
+                </div>
+                <div class="form-group">
+                  <label for="inputNoTelp">No Telpon</label>
+                  <input value="<?php echo $row->siswa_telp ?>" readonly name="telp" type="text" class="form-control" id="inputNoTelp" placeholder="*) Ex: 08123456789" required="">
+                </div>
+                <div class="form-group">
+                  <label for="inputEmail">Email</label>
+                  <input value="<?php echo $row->siswa_email ?>" readonly name="email" type="email" class="form-control" id="inputEmail" placeholder="*) Ex: email@gmail.com" required="">
+                </div>
+                <div class="form-group">
+                  <label for="inputAlamat">Alamat</label>
+                  <textarea name="alamat" class="form-control" id="inputAlamat" required="" readonly>
+                    <?php echo $row->siswa_alamat?>
+                  </textarea>
+                </div>
+                <div class="form-group">
+                  <label for="inputUsername">Username</label>
+                  <input value="<?php echo $row->siswa_username ?>" readonly name="username" type="text" class="form-control" id="inputUsername" placeholder="*) Username" required="">
+                </div>
+                <div class="form-group">
+                  <label for="inputPassword">Password</label>
+                  <input value="<?php echo $row->siswa_password ?>" readonly name="text" type="password" class="form-control" id="inputPassword" placeholder="*******" required="">
+                </div>
+                <a href="<?php echo base_url() ?>admin/form-edit-data-admin/<?php echo $row->siswa_id ?>" class="btn btn-primary edit">Edit</a>
             </div>
             <!-- /.card-body -->
           </div>

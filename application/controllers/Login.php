@@ -33,7 +33,7 @@ class Login extends CI_Controller{
         $cek_admin  = $this->m_login->cek_login("admin",$where_admin)->num_rows();
         $cek_guru   = $this->m_login->cek_login("guru",$where_guru)->num_rows();
         $cek_siswa  = $this->m_login->cek_login("siswa",$where_siswa)->num_rows();
-
+        
         if ( $cek_admin > 0 ) {
             # code...
             $row  = $this->m_login->cek_login("admin",$where_admin)->row();
@@ -43,28 +43,32 @@ class Login extends CI_Controller{
                 'status' => "login",
                 'level' => 'admin'
             );
-        
+            
             $this->session->set_userdata($data_session);
-        
+            
             redirect(base_url("admin/beranda"));
         }
-
+        
         elseif ( $cek_guru > 0 ) {
             # code...
+            $row   = $this->m_login->cek_login("guru",$where_guru)->row();
             $data_session = array(
+                'id' => $row->guru_id,
                 'nama' => $username,
                 'status' => "login",
                 'level' => 'guru'
             );
-        
+            
             $this->session->set_userdata($data_session);
-        
+            
             redirect(base_url("admin/beranda"));
         }
-
+        
         elseif ( $cek_siswa > 0 ) {
             # code...
+            $row  = $this->m_login->cek_login("siswa",$where_siswa)->row();
             $data_session = array(
+                'id' => $row->siswa_id,
                 'nama' => $username,
                 'status' => "login",
                 'level' => 'siswa'

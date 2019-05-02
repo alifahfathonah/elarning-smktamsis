@@ -9,12 +9,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <!-- <h1>Data Tables</h1> -->
+            <h1>Data Informasi Materi</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Akademik</a></li>
-              <li class="breadcrumb-item active">Kelas</li>
+              <li class="breadcrumb-item"><a href="<?php echo base_url() ?>admin/beranda">Beranda</a></li>
+              <li class="breadcrumb-item active">Informasi Materi</li>
             </ol>
           </div>
         </div>
@@ -26,15 +26,15 @@
       <div class="row">
         <div class="col-12">
           <div class="card">
-            <div class="card-header">
+            <!-- <div class="card-header">
               <h3 class="card-title">Daftar Informasi Kelas</h3>
-            </div>
+            </div> -->
             <!-- /.card-header -->
             <div class="card-body">
               <table id="example1" class="table table-bordered table-striped">
                 <thead>
                 <tr>
-                  <th>Rendering engine</th>
+                  <th>Nama Materi</th>
                   <th>Browser</th>
                   <th>Platform(s)</th>
                   <th>Engine version</th>
@@ -124,7 +124,7 @@
                 </tbody>
                 <tfoot>
                 <tr>
-                  <th>Rendering engine</th>
+                  <th>Nama Materi</th>
                   <th>Browser</th>
                   <th>Platform(s)</th>
                   <th>Engine version</th>

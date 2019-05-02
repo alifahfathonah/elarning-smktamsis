@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 29, 2019 at 03:48 AM
+-- Generation Time: May 02, 2019 at 11:13 AM
 -- Server version: 10.1.38-MariaDB
 -- PHP Version: 7.3.2
 
@@ -44,7 +44,7 @@ CREATE TABLE `admin` (
 --
 
 INSERT INTO `admin` (`admin_id`, `admin_nama`, `admin_username`, `admin_password`, `admin_level`, `alamat`, `email`, `no_telp`) VALUES
-(1, 'admin', 'admin', 'admin', 'admin', 'jogja', 'admin@gmail.com', '08123456789');
+(1, 'admin', 'admin', 'admin', 'admin', '																jogja\r\n							\r\n							', 'admin@gmail.com', '08123456789');
 
 -- --------------------------------------------------------
 
@@ -114,6 +114,7 @@ INSERT INTO `kelas` (`kelas_id`, `kelas_nama`) VALUES
 
 CREATE TABLE `materi` (
   `materi_id` int(10) NOT NULL,
+  `materi_nama` varchar(64) DEFAULT NULL,
   `tanggal_upload` date DEFAULT NULL,
   `nama_file` varchar(100) DEFAULT NULL,
   `file` varchar(255) DEFAULT NULL,
@@ -254,7 +255,7 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `guru`
 --
 ALTER TABLE `guru`
-  MODIFY `guru_id` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `guru_id` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `kelas`
@@ -272,7 +273,7 @@ ALTER TABLE `pelajaran`
 -- AUTO_INCREMENT for table `siswa`
 --
 ALTER TABLE `siswa`
-  MODIFY `siswa_id` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `siswa_id` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
