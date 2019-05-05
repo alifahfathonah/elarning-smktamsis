@@ -1,7 +1,7 @@
 # elarning-smktamsis
 Elearning smk tamansiswa jetis
 
-cara install:
+# cara install:
 -clone or download
 -download zip
 -extract zip and move or copy to your xampp directory
