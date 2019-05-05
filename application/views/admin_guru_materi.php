@@ -36,20 +36,38 @@
                 <thead>
                 <tr>
                   <th>Nama Materi</th>
+                  <th>Kelas</th>
+                  <th>Pelajaran</th>
                   <th>Tanggal Upload</th>
-                  <th>Tipe File</th>
                   <th>Action</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                  <td>Trident</td>
-                  <td>Internet
-                    Explorer 4.0
-                  </td>
-                  <td>Win 95+</td>
-                  <td> 4</td>
-                </tr>
+                <?php
+                  foreach ($rows as $key => $value) {
+                    echo "
+                      <tr>
+                        <td>$value->judul_materi</td>
+                        <td>$value->kelas_nama</td>
+                        <td>$value->pelajaran_nama</td>
+                        <td>".tgl_indo($value->tanggal_upload)."</td>
+                        <td>
+                          <div class='btn-group'>
+                            <button type='button' class='btn btn-default'>Action</button>
+                            <button type='button' class='btn btn-default dropdown-toggle' data-toggle='dropdown' aria-expanded='false'>
+                              <span class='caret'></span>
+                              <span class='sr-only'>Toggle Dropdown</span>
+                            </button>
+                            <div class='dropdown-menu' role='menu' x-placement='top-start' style='position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(67px, -165px, 0px);'>
+                              <a class='dropdown-item edit' href='".base_url('admin/form-edit-data-materi/'.$value->materi_id)."'>Edit</a>
+                              <a class='dropdown-item delete' href='".base_url('admin/delete-data-materi/'.$value->materi_id)."'>Delete</a>
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
+                    ";
+                  }
+                ?>
                 
                 </tbody>
                 <!-- <tfoot>
@@ -117,7 +135,7 @@
     },'html');
   });
 
-  $(document).on('submit', 'form#addNewSiswa', function(e) {
+  $(document).on('submit', 'form#addNewMateri', function(e) {
     e.preventDefault();    
     var formData = new FormData(this);
 
@@ -132,6 +150,7 @@
           } else {
             alert( data.msg );
           }
+          // console.log(data);
         },
         cache: false,
         contentType: false,
@@ -144,7 +163,7 @@
   $('.edit').on('click', function(e){
     e.preventDefault(); 
     $.get( $(this).attr('href'), function(data){
-      $('#myModal .modal-title').html('Edit Informasi Siswa');
+      $('#myModal .modal-title').html('Edit Informasi Materi');
       $('#myModal .modal-body').html(data);
       $('#myModal').modal('show');
     } ,'html');
@@ -159,7 +178,7 @@
     } ,'json');
   });
 
-  $(document).on('submit','form#editSiswa',function(e){
+  $(document).on('submit','form#editMateri',function(e){
     e.preventDefault();    
     var formData = new FormData(this);
 
@@ -168,7 +187,8 @@
         type: 'POST',
         data: formData,
         success: function (data) {
-            alert( (data.stats=='1') ? 'Data Berhasil Diupdate' : 'Data Gagal Diupdate' )
+          // console.log(data)
+            alert( (data.stats=='1') ? data.msg : data.msg )
             location.reload()
         },
         cache: false,

@@ -56,7 +56,7 @@
           </li>
           <li class="nav-item ">
             <a href="<?php echo base_url() ?>admin/data-materi" class="nav-link <?php echo ($this->uri->segment(2) == 'data-materi' ) ? 'active' : null ?>">
-              <i class="nav-icon fa fa-user-circle-o"></i>
+              <i class="nav-icon fa fa-archive"></i>
               <p>
                 Materi
               </p>
@@ -64,7 +64,7 @@
           </li>
           <li class="nav-item has-treeview <?php echo ($this->uri->segment(2) == 'data-upload' || $this->uri->segment(2) == 'data-download' ) ? 'menu-open' : null ?>">
             <a href="#" class="nav-link">
-              <i class="nav-icon fa fa-user"></i>
+              <i class="nav-icon fa fa-tasks"></i>
               <p>
                 Tugas
                 <i class="right fa fa-angle-left"></i>
@@ -77,12 +77,12 @@
                   <p>Upload</p>
                 </a>
               </li>
-              <li class="nav-item">
+              <!-- <li class="nav-item">
                 <a href="<?php echo base_url() ?>admin/data-download" class="nav-link <?php echo ($this->uri->segment(2) == 'data-download' ) ? 'active' : null ?>">
                   <i class="fa fa-circle-o nav-icon"></i>
                   <p>Download</p>
                 </a>
-              </li>
+              </li> -->
             </ul>
           </li>
         </ul>

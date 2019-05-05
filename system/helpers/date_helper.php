@@ -740,3 +740,44 @@ if ( ! function_exists('date_range'))
 		return $range;
 	}
 }
+if ( ! function_exists('tgl_indo'))
+{
+	/**
+	 * Date range
+	 *
+	 * Returns a list of dates within a specified period.
+	 *
+	 * @param	int	unix_start	UNIX timestamp of period start date
+	 * @param	int	unix_end|days	UNIX timestamp of period end date
+	 *					or interval in days.
+	 * @param	mixed	is_unix		Specifies whether the second parameter
+	 *					is a UNIX timestamp or a day interval
+	 *					 - TRUE or 'unix' for a timestamp
+	 *					 - FALSE or 'days' for an interval
+	 * @param	string  date_format	Output date format, same as in date()
+	 * @return	array
+	 */
+	function tgl_indo($tanggal){
+		$bulan = array (
+			1 =>   'Januari',
+			'Februari',
+			'Maret',
+			'April',
+			'Mei',
+			'Juni',
+			'Juli',
+			'Agustus',
+			'September',
+			'Oktober',
+			'November',
+			'Desember'
+		);
+		$pecahkan = explode('-', $tanggal);
+		
+		// variabel pecahkan 0 = tanggal
+		// variabel pecahkan 1 = bulan
+		// variabel pecahkan 2 = tahun
+	 
+		return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
+	}
+}

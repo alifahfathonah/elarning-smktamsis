@@ -9,12 +9,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Data Informasi Tugas</h1>
+            <h1>Data Informasi PBM</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="<?php echo base_url() ?>admin/beranda">Beranda</a></li>
-              <li class="breadcrumb-item active">Informasi Tugas</li>
+              <li class="breadcrumb-item active">Informasi PBM</li>
             </ol>
           </div>
         </div>
@@ -26,20 +26,21 @@
       <div class="row">
         <div class="col-12">
           <div class="card">
-            <!-- <div class="card-header"> -->
+            <div class="card-header">
               <!-- <h3 class="card-title">Daftar Informasi Kelas</h3> -->
-            <!-- </div> -->
+              <a href="<?php echo base_url() ?>admin/form-add-pbm" class="btn btn-default float-right add-new"><i class="fa fa-plus"></i> Add New</a>
+            </div>
             <!-- /.card-header -->
             <div class="card-body">
               <table id="example1" class="table table-bordered table-striped">
                 <thead>
                 <tr>
-                  <th>Nama Tugas</th>
-                  <th>Nama Materi</th>
+                  <th>Tahun Ajaran</th>
+                  <th>NIS</th>
+                  <th>Nama Siswa</th>
+                  <th>Kelas</th>
                   <th>Pelajaran</th>
-                  <th>Status</th>
-                  <th>Tanggal Upload</th>
-                  <th>Action</th>
+                  <th>Nama Guru</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -47,39 +48,24 @@
                   foreach ($rows as $key => $value) {
                     echo "
                       <tr>
-                        <td>$value->nama_soal</td>
-                        <td>$value->judul_materi</td>
+                        <td>$value->tahun_ajaran</td>
+                        <td>$value->siswa_nis</td>
+                        <td>$value->siswa_nama</td>
+                        <td>$value->kelas_nama</td>
                         <td>$value->pelajaran_nama</td>
-                        <td>".($value->status=='true'? '<span class="badge badge-pill badge-info">Sudah Dikerjakan</span>' : '<span class="badge badge-pill badge-warning">Belum Dikerjakan</span>' )."</td>
-                        <td>".tgl_indo($value->tanggal_upload)."</td>
-                        <td>
-                          <div class='btn-group'>
-                            <button type='button' class='btn btn-default'>Action</button>
-                            <button type='button' class='btn btn-default dropdown-toggle' data-toggle='dropdown' aria-expanded='false'>
-                              <span class='caret'></span>
-                              <span class='sr-only'>Toggle Dropdown</span>
-                            </button>
-                            <div class='dropdown-menu' role='menu' x-placement='top-start' style='position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(67px, -165px, 0px);'>
-                              <a target='_blank' class='dropdown-item' href='".base_url('src/upload/'.$value->soal_file)."'>Download Tugas</a>
-                              <a target='_blank' class='dropdown-item' href='".base_url('src/materi/'.$value->materi_file)."'>Download Materi</a>
-                              ".($value->status=='true'? null : "<a class='dropdown-item answer' href='".base_url('admin/form-upload-jawaban/'.$value->soal_id)."'>Upload Jawaban</a>")."
-                            </div>
-                          </div>
-                        </td> 
+                        <td>$value->guru_nama</td>
                       </tr>
                     ";
                   }
                 ?>
                 
-                
                 </tbody>
                 <!-- <tfoot>
                 <tr>
-                  <th>Rendering engine</th>
-                  <th>Browser</th>
-                  <th>Platform(s)</th>
-                  <th>Engine version</th>
-                  <th>CSS grade</th>
+                  <th>Nama Materi</th>
+                  <th>Tanggal Upload</th>
+                  <th>Tipe File</th>
+                  <th>Action</th>
                 </tr>
                 </tfoot> -->
               </table>
@@ -95,6 +81,7 @@
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
+
     <!-- The Modal -->
     <div class="modal fade" id="myModal">
     <div class="modal-dialog modal-dialog-centered">
@@ -120,6 +107,7 @@
     </div>
   </div>
   <!-- /.modal -->
+
 <!-- DataTables -->
 <script src="<?php echo base_url()?>/themes/adminlte/adminlte.io/themes/dev/adminlte/plugins/datatables/jquery.dataTables.js"></script>
 <script src="<?php echo base_url()?>/themes/adminlte/adminlte.io/themes/dev/adminlte/plugins/datatables/dataTables.bootstrap4.js"></script>
@@ -128,17 +116,31 @@
     $("#example1").DataTable();
   });
 
-  $('.answer').on('click', function(e){
-    e.preventDefault(); 
-    $.get( $(this).attr('href'), function(data){
-      $('#myModal .modal-title').html('Upload Jawaban');
+  $(document).on('click', '.add-new', function(e){
+    e.preventDefault();
+    $.get($(this).attr('href'), function(data){
+      $('#myModal .modal-title').html('Tambah Data Informasi PBM');
       $('#myModal .modal-body').html(data);
       $('#myModal').modal('show');
-    } ,'html');
 
+        $('#inputNis').on('keyup',function(){
+            $.get('<?php echo base_url() ?>admin/cek-nis',{"nis":$(this).val()},function(data){
+                $('#alertInputNis').html(')'+data.msg);
+                if ( data.stats == '1' ) {
+                    $.get('<?php echo base_url() ?>admin/pbm-pelajaran',{ "siswa_id" : data.siswa_id },function(_data){
+                        $('#inputPelajaran').html(_data);
+                        console.log(_data);
+                    },'html');
+                }else{
+                    $('#inputPelajaran').html('<option value="">'+data.msg+'</option>');
+                }
+                console.log(data);
+            },'json');
+        });
+    },'html');
   });
 
-  $(document).on('submit','form#uploadJawaban',function(e){
+  $(document).on('submit', 'form#addNewPbm', function(e) {
     e.preventDefault();    
     var formData = new FormData(this);
 
@@ -147,14 +149,19 @@
         type: 'POST',
         data: formData,
         success: function (data) {
-          // console.log(data)
-            alert( (data.stats=='1') ? data.msg : data.msg )
+          if ( data.stats==1 ) {
+            alert( data.msg )
             location.reload()
+          } else {
+            alert( data.msg );
+          }
+          console.log(data);
         },
         cache: false,
         contentType: false,
         processData: false,
         dataType: 'json'
+
     });
   });
 </script>

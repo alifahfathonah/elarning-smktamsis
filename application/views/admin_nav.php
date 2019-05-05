@@ -85,7 +85,7 @@
               </li>
             </ul>
           </li>
-          <li class="nav-item has-treeview <?php echo ($this->uri->segment(2) == 'kelas' || $this->uri->segment(2) == 'pelajaran') ? 'menu-open' : null ; ?>">
+          <li class="nav-item has-treeview <?php echo ($this->uri->segment(2) == 'kelas' || $this->uri->segment(2) == 'pelajaran' || $this->uri->segment(2) == 'pbm') ? 'menu-open' : null ; ?>">
             <a href="#" class="nav-link">
               <i class="nav-icon fa fa-graduation-cap"></i>
               <p>
@@ -104,6 +104,12 @@
                 <a href="<?php echo base_url('admin/pelajaran')?>" class="nav-link <?php echo ($this->uri->segment(2) == 'pelajaran') ? 'active' : null ; ?>">
                   <i class="fa fa-circle-o nav-icon"></i>
                   <p>Pelajaran</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="<?php echo base_url('admin/pbm')?>" class="nav-link <?php echo ($this->uri->segment(2) == 'pbm') ? 'active' : null ; ?>">
+                  <i class="fa fa-circle-o nav-icon"></i>
+                  <p>PBM</p>
                 </a>
               </li>
             </ul>

@@ -27,7 +27,7 @@
             <div class="alert alert-success alert-dismissible">
               <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
               <h5><i class="icon fa fa-check"></i> Info!</h5>
-              Selamat Datang Di halaman Admin Guru.
+              Selamat Datang Di halaman Admin Siswa.
             </div>
           </div>
           <!-- ./col -->

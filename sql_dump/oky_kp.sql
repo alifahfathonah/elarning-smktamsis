@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 02, 2019 at 11:13 AM
+-- Generation Time: May 05, 2019 at 06:59 PM
 -- Server version: 10.1.38-MariaDB
 -- PHP Version: 7.3.2
 
@@ -82,9 +82,15 @@ CREATE TABLE `jawaban` (
   `jawaban_id` int(10) NOT NULL,
   `soal_id` int(10) NOT NULL,
   `nama_file` varchar(100) NOT NULL,
-  `siswa_id` varchar(10) NOT NULL,
-  `file` varchar(25) NOT NULL
+  `siswa_id` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `jawaban`
+--
+
+INSERT INTO `jawaban` (`jawaban_id`, `soal_id`, `nama_file`, `siswa_id`) VALUES
+(1, 1, 'tes.pdf', '1');
 
 -- --------------------------------------------------------
 
@@ -114,12 +120,19 @@ INSERT INTO `kelas` (`kelas_id`, `kelas_nama`) VALUES
 
 CREATE TABLE `materi` (
   `materi_id` int(10) NOT NULL,
-  `materi_nama` varchar(64) DEFAULT NULL,
+  `judul_materi` varchar(225) DEFAULT NULL,
+  `pelajaran_id` int(8) DEFAULT NULL,
   `tanggal_upload` date DEFAULT NULL,
-  `nama_file` varchar(100) DEFAULT NULL,
-  `file` varchar(255) DEFAULT NULL,
-  `guru_id` varchar(30) DEFAULT NULL
+  `nama_file` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `materi`
+--
+
+INSERT INTO `materi` (`materi_id`, `judul_materi`, `pelajaran_id`, `tanggal_upload`, `nama_file`) VALUES
+(1, 'materi satu', 7, '2019-05-03', 'MATERI_BAB_I.docx'),
+(2, 'Materi Dua', 7, '2019-05-03', 'MATERI_BAB_II.docx');
 
 -- --------------------------------------------------------
 
@@ -128,11 +141,21 @@ CREATE TABLE `materi` (
 --
 
 CREATE TABLE `pbm` (
-  `tahun_ajaran` varchar(4) DEFAULT NULL,
+  `pbm_id` int(11) NOT NULL,
+  `tahun_ajaran` char(9) DEFAULT NULL,
   `pelajaran_id` int(15) DEFAULT NULL,
   `siswa_id` int(10) DEFAULT NULL,
-  `mapel_id` int(15) DEFAULT NULL
+  `guru_id` int(15) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `pbm`
+--
+
+INSERT INTO `pbm` (`pbm_id`, `tahun_ajaran`, `pelajaran_id`, `siswa_id`, `guru_id`) VALUES
+(1, '2019/2020', 7, 1, 1),
+(2, '2019/2020', 8, 1, 3),
+(3, '2019/2020', 7, 2, 1);
 
 -- --------------------------------------------------------
 
@@ -153,7 +176,9 @@ CREATE TABLE `pelajaran` (
 INSERT INTO `pelajaran` (`pelajaran_id`, `pelajaran_nama`, `kelas_id`) VALUES
 (4, 'Matematika', 2),
 (5, 'Bahasa Indonesia', 3),
-(6, 'Bahasa Inggris', 4);
+(6, 'Bahasa Inggris', 4),
+(7, 'Bahasa Indonesia', 4),
+(8, 'Matematika', 4);
 
 -- --------------------------------------------------------
 
@@ -179,7 +204,8 @@ CREATE TABLE `siswa` (
 --
 
 INSERT INTO `siswa` (`siswa_id`, `siswa_nis`, `siswa_nama`, `siswa_username`, `siswa_password`, `siswa_level`, `siswa_telp`, `siswa_alamat`, `siswa_email`, `kelas_id`) VALUES
-(1, '111235020000120001', 'siswa satu', 'siswa', 'siswa', 'siswa', '08123456789', 'jogja', 'siswasatu@gmail.com', 2);
+(1, '111235020000120001', 'siswa satu', 'siswa', 'siswa', 'siswa', '08123456789', '								jogja\r\n							', 'siswasatu@gmail.com', 4),
+(2, '111235020000120002', 'siswa dua', 'siswadua', 'siswad', 'siswa', '08123456789', 'Babadan, Gedongkuning, Yogyakarta', 'siswadua@gmail.com', 4);
 
 -- --------------------------------------------------------
 
@@ -189,11 +215,19 @@ INSERT INTO `siswa` (`siswa_id`, `siswa_nis`, `siswa_nama`, `siswa_username`, `s
 
 CREATE TABLE `soal` (
   `soal_id` int(10) NOT NULL,
-  `jawaban_id` varchar(25) DEFAULT NULL,
-  `pelajaran_id` int(15) DEFAULT NULL,
-  `tanggal_soal` date DEFAULT NULL,
-  `file` varchar(25) DEFAULT NULL
+  `nama_soal` varchar(225) DEFAULT NULL,
+  `materi_id` int(10) DEFAULT NULL,
+  `tanggal_upload` date DEFAULT NULL,
+  `nama_file` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `soal`
+--
+
+INSERT INTO `soal` (`soal_id`, `nama_soal`, `materi_id`, `tanggal_upload`, `nama_file`) VALUES
+(1, 'Tes Soal Satu', 1, '2019-05-03', 'BAB_III.pdf'),
+(3, 'Tugas pertama Materi Dua', 2, '2019-05-04', 'Template_Proposal_PTA-KP.docx');
 
 --
 -- Indexes for dumped tables
@@ -212,6 +246,12 @@ ALTER TABLE `guru`
   ADD PRIMARY KEY (`guru_id`);
 
 --
+-- Indexes for table `jawaban`
+--
+ALTER TABLE `jawaban`
+  ADD PRIMARY KEY (`jawaban_id`);
+
+--
 -- Indexes for table `kelas`
 --
 ALTER TABLE `kelas`
@@ -222,6 +262,12 @@ ALTER TABLE `kelas`
 --
 ALTER TABLE `materi`
   ADD PRIMARY KEY (`materi_id`);
+
+--
+-- Indexes for table `pbm`
+--
+ALTER TABLE `pbm`
+  ADD PRIMARY KEY (`pbm_id`);
 
 --
 -- Indexes for table `pelajaran`
@@ -258,22 +304,46 @@ ALTER TABLE `guru`
   MODIFY `guru_id` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
+-- AUTO_INCREMENT for table `jawaban`
+--
+ALTER TABLE `jawaban`
+  MODIFY `jawaban_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `kelas`
 --
 ALTER TABLE `kelas`
   MODIFY `kelas_id` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
+-- AUTO_INCREMENT for table `materi`
+--
+ALTER TABLE `materi`
+  MODIFY `materi_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `pbm`
+--
+ALTER TABLE `pbm`
+  MODIFY `pbm_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT for table `pelajaran`
 --
 ALTER TABLE `pelajaran`
-  MODIFY `pelajaran_id` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `pelajaran_id` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `siswa`
 --
 ALTER TABLE `siswa`
-  MODIFY `siswa_id` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `siswa_id` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `soal`
+--
+ALTER TABLE `soal`
+  MODIFY `soal_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
